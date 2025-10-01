@@ -16,17 +16,17 @@ namespace LibraryManagementSystem.Controllers
             _libraryService = libraryService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllBooks")]
         public IActionResult GetBooks() => Ok(_libraryService.GetBooks());
 
-        [HttpGet("{id}")]
+        [HttpGet("GetBook/{id}")]
         public IActionResult GetBook(int id)
         {
             var book = _libraryService.GetBook(id);
             return book is null ? NotFound() : Ok(book);
         }
 
-        [HttpPost]
+        [HttpPost("AddBook")]
         public IActionResult AddBook([FromBody] BookDto bookDto)
         {
             var book = new Book
@@ -39,7 +39,7 @@ namespace LibraryManagementSystem.Controllers
             return Ok(book);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateBook/{id}")]
         public IActionResult UpdateBook(int id, [FromBody] BookDto bookDto)
         {
             var updated = new Book
@@ -52,7 +52,7 @@ namespace LibraryManagementSystem.Controllers
             return Ok("Book Updated");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteBook/{id}")]
         public IActionResult DeleteBook(int id)
         {
             _libraryService.DeleteBook(id);

@@ -14,17 +14,17 @@ namespace LibraryManagementSystem.Controllers
                 _libraryService = libraryService;
             }
 
-            [HttpGet]
+            [HttpGet("GetAllMembers")]
             public IActionResult GetMembers() => Ok(_libraryService.GetMembers());
 
-            [HttpGet("{id}")]
+            [HttpGet("GetMember/{id}")]
             public IActionResult GetMember(int id)
             {
                 var member = _libraryService.GetMember(id);
                 return member is null ? NotFound() : Ok(member);
             }
 
-            [HttpPost]
+            [HttpPost("AddMember")]
             public IActionResult AddMember([FromBody] MemberDto memberDto)
             {
                 var member = new Member
@@ -36,7 +36,7 @@ namespace LibraryManagementSystem.Controllers
                 return Ok(member);
             }
 
-            [HttpPut("{id}")]
+            [HttpPut("UpdateMember/{id}")]
             public IActionResult Updatemember(int id, [FromBody] MemberDto memberDto)
             {
                 var updated = new Member
@@ -48,7 +48,7 @@ namespace LibraryManagementSystem.Controllers
                 return Ok("member Updated");
             }
 
-            [HttpDelete("{id}")]
+            [HttpDelete("DeleteMember/{id}")]
             public IActionResult DeleteMember(int id)
             {
                 _libraryService.DeleteMember(id);
